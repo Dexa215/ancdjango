@@ -5,6 +5,18 @@ from django.contrib.auth.models import User
 import math
 # Create your models here.
 
+class CaricaSociale(models.Model):
+    CaricaCode=models.TextField(default='S')
+    CaricaDescrizione=models.TextField(default='Socio')
+
+    def __str__(self):
+        return self.CaricaCode
+
+    class Meta:
+        verbose_name = "CaricaSociale"
+        verbose_name_plural = "CaricheSociali"
+
+
 class Tessera(models.Model):
     TesseraId       =     models.CharField(max_length=15)
     TesseraNumero   =     models.CharField(max_length=15)
@@ -12,7 +24,7 @@ class Tessera(models.Model):
         ('E', 'Effettivo'),
         ('B', 'Familiare Benemerita'),
         ('F', 'Familiare'),
-        ('S', 'Simpatizzante'),
+        ('S', 'Simpatizzante')
     )
     TesseraRilascioIl=models.DateTimeField()
 
@@ -25,13 +37,13 @@ class Tessera(models.Model):
 
 
 class Socio(User):
-    nome_socio      = models.CharField(max_length=80)
-    cognome_socio   = models.CharField(max_length=80)
+    #nome_socio      = models.CharField(max_length=80)
+    #cognome_socio   = models.CharField(max_length=80)
     descrizione     = models.CharField(max_length=150, blank=True, null=True)
     foto_socio      = models.ImageField(blank=True, null=True)
 
     def __str__(self):
-        denominazionesocio = self.cognome_socio + ' *' + self.nome_socio
+        denominazionesocio = self.last_name + ' * ' + self.first_name
         return denominazionesocio
 
     class Meta:
@@ -39,17 +51,31 @@ class Socio(User):
         verbose_name_plural = "Soci"
 
 class Rts(models.Model):
-    TesseraId = models.ForeignKey(Socio,    on_delete=models.CASCADE, related_name="relazioni")
-    SocioId = models.ForeignKey(Tessera,    on_delete=models.CASCADE)
+    SocioId     = models.ForeignKey(Socio,    on_delete=models.CASCADE)
+    TesseraId   = models.ForeignKey(Tessera,  on_delete=models.CASCADE, related_name="relazioni")
     
     def __str__(self):
         relazione = self.TesseraId.__str__() + '-r-' + self.SocioId.__str__()
         return relazione
         
     class Meta:
-        verbose_name = "Relazione"
-        verbose_name_plural = "Relazioni"
+        verbose_name = "RelazioneTessere"
+        verbose_name_plural = "RelazioniTessere"
 
+
+class Rcs(models.Model):
+    SocioId = models.ForeignKey(Socio, on_delete=models.CASCADE)
+    CaricaSociale = models.ForeignKey(CaricaSociale, on_delete=models.CASCADE)
+    Inizio = models.DateTimeField()
+    Fine = models.DateTimeField()
+
+    def __str__(self):
+        relazione = self.CaricaSociale.__str__() + '   -r-   ' + self.SocioId.__str__()
+        return relazione
+
+    class Meta:
+        verbose_name = "RelazioneCarica"
+        verbose_name_plural = "RelazioniCariche"
     
 class Sezione(models.Model):
     """

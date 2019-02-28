@@ -25,7 +25,7 @@ SECRET_KEY = 'w_!%7dt*t+n_jeeq6lyljjkz61^l_)3*gj5)$4u_t(($^2wcb@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms', # pip install django_crispy_forms
-        
+    'app1',
     'core',
 ]
 
@@ -57,7 +57,9 @@ ROOT_URLCONF = 'ptf8.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'accounts/templates'),
+                 os.path.join(BASE_DIR, 'core/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,8 +118,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static-storage')]
+STATIC_ROOT = '/home/dexo/static-serve/'    ### collectstatic
+STATIC_URL = '/static/'                     ### {% static %}
+
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media-serve')
+MEDIA_URL = '/media/'                       ### {% media %}
+
+LOGIN_REDIRECT_URL = "/"
