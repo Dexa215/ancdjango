@@ -6,18 +6,22 @@
 <script>
 $(document).ready(function(){
   // $("button").click(function(){
-    $("#idtitle").fadeIn(4000);
+    $("#idtitle").fadeIn(6000);
+    $("#idhomeB").fadeIn(2500);
 
+    //-----------------------------
     $("#idhomepage").animate({
         left: '+=60px',
         opacity:'1'
     },(1500));
-
+    //-----------------------------
+    $("#idelencosoci").animate({
+        left: '+=60px',
+        opacity:'1'
+    },(1500));
   //});
 });
 </script>
-
-
 
       <!-- Required meta tags -->
       <meta charset="utf-8">
@@ -38,7 +42,7 @@ $(document).ready(function(){
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <h1 id="idtitle" style="display:none;">Associazione Nazionale Carabinieri</h1>
-
+            <H2></H2>
             <a class="navbar-brand" href="{% url 'indexhome' %}">Sezione di Tradate</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -58,6 +62,11 @@ $(document).ready(function(){
         {% endblock content %}
 
     </div>
+
+    <div class="container container-fluid" >
+        <p id="idhomeB" style="display:none;">Associazione Nazionale Carabinieri - Sezione "C.Bergia" Tradate - CF 95066440124 - Powered by 2Pi-NT</p>
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

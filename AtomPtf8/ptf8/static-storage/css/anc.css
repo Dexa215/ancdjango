@@ -19,6 +19,16 @@ navbar-brand{
     color: #993300;
 }
 
+#idtitle{
+    color: #cc1111;
+    margin-right: 30px;
+}
+
+/* classi */
+.h-600{
+    height: 600px;
+}
+
 .tab1 {
     padding-left: 8em;
 }
